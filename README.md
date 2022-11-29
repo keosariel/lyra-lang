@@ -1,8 +1,9 @@
-# Lyra - A discreet, leftist, programming language 
+# Lyra - A discreet, syntax leftist, llvm ahead-of-time programming language 
+## Defeating your Antivirus soon by default
 
+![Lyra Lang](https://github.com/zdanl/lyra-lang/blob/main/github-header-image%20(1).png?raw=true)
 
-
-This is a compiler for Lyra Language, built with Python 3.8+ and the LLVM framework using the llvmlite library.
+This is a compiler for Lyra Language, built with Python 3.8+ and the LLVM framework using the llvmlite library. It supports C/C++ type multiline comments, single line comments, as well as Python typical syntax and Julia Lang features as to commentary. Contrary to Python as to dynamic implementation it supports a Lexically inbound Compiled Class system, which Julia lacks by parallel integration with structs and wiring of functions, to the best of our knowledge. It is very punctuation liberal and allows different styles of addressing memory from data structures. For example the following are legitimate accessors for both object attributes and dictionary keys ´´ -> :: : . ´´ 
  
  ## Features
 - **it's fast**, because it should be so, together with LLVM's state of the art optimizations, but it won't ever oblige you to make
