@@ -60,7 +60,24 @@ class PParser(Parser):
     @_('NAME LPAREN params RPAREN')
     def statement(self,p):
         return utils.func_call(p.NAME,p.params)
+
+    @_('struct_params COMMA struct_param')
+    def struct_params(self,p):
+        p.struct_params.append(p.struct_param)
+        return p.struct_params
     
+    @_('struct_param')
+    def struct_params(self,p):
+        return [p.struct_param]
+    
+    @_('NAME COLON NAME')
+    def struct_param(self,p):
+        return {'name':p.NAME0,'type':p.NAME1}
+    
+    @_('')
+    def struct_param(self,p):
+        return
+
     @_('def_params COMMA def_param')
     def def_params(self,p):
         p.def_params.append(p.def_param)
@@ -129,7 +146,7 @@ class PParser(Parser):
     @_('NUMBER')
     def expr(self,p):
         return utils.data('Number',int(p.NUMBER))
-    
+   
     @_('MINUS NUMBER')
     def expr(self,p):
         return utils.data('Number',int(p.NUMBER)*-1)

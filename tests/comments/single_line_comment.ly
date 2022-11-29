@@ -1,9 +1,8 @@
 def main():int{
-    # foo
+    // foo
     # bar
-
     age = 18
-    # foo bar
+    #//# foo bar
 
     if age == 18{
         printf('wow you are 18\n')

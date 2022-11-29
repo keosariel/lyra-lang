@@ -3,7 +3,7 @@ def main():int{
     /* bar */
 
     age = 18
-    /* foo bar */
+    /* /*foo bar */
     /*ooooo
 
     foo bar

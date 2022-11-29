@@ -1,5 +1,7 @@
 from sly import Lexer
 
+import re
+
 def group(*choices): return '(' + '|'.join(choices) + ')'
 def any(*choices): return group(*choices) + '*'
 def maybe(*choices): return group(*choices) + '?'
@@ -55,6 +57,22 @@ class PLexer(Lexer):
         XOR
     }
 
+    @_(r'#.*')
+    def HASH_SINGLE_COMMENT(self, t):
+        pass
+   
+    @_(r'//.*')
+    def SLASH_SINGLE_COMMENT(self, t):
+        pass
+
+    @_(r'/\*.*?\*/')
+    def SLASHSTAR_SINGLE_COMMENT(self, t):
+        pass
+
+    @_(r'\/\*+((([^\*])+)|([\*]+(?!\/)))[*]+\/')
+    def SLASHSTAR_MULTI_COMMENT(self, t):
+        pass
+
     literals = {',',';'}
 
     FLOAT = group(Pointfloat, Expfloat)
@@ -70,7 +88,6 @@ class PLexer(Lexer):
     @_(r'\n')
     def newline(self,t ):
         self.lineno += 1
-
 
     NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
     NAME['if'] = IF
@@ -107,15 +124,6 @@ class PLexer(Lexer):
     DIVIDE = r'/'
     MOD = r'%'
     COLON = r':'
-    COMMA = r','
-
-    @_(r'(#|\/\/).*')
-    def COMMENT(self, t):
-        pass
-
-    @_(r'\/\*\*(.|\n)+?\*\)')
-    def MULTI_LINE_COMMENT(self, t):
-        pass
 
     def error(self, t):
         print(f'Illegal character {t.value[0]}, in line {self.lineno}, index {self.index}')

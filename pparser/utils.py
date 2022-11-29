@@ -4,6 +4,12 @@ def data(Type,value):
     """
     return(Type,{'value':value})
 
+def comment(value):
+    """
+    Comment of any kind"
+    """
+    pass
+
 def expression(op,lhs,rhs):
     """
     lhs (left-hand-side)

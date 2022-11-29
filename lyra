@@ -13,7 +13,6 @@ import llvmlite.binding as llvm
 from pparser.Lexer import PLexer
 from pparser.Parser import PParser
 from compiler.compiler import Compiler
-from preprocessor.preprocessor import Outcommentor
 
 from ctypes import CFUNCTYPE, c_int, c_float
 from time import time
@@ -22,14 +21,9 @@ import sys
 import pprint
 import argparse
 
-def lyra_preprocess(code):
-    preprocessed = Outcommentor(code)
-    print(preprocessed.code)
-    return preprocessed.code
-
 def lyra_file(file):
     with open(file, 'r') as file:
-        code = lyra_preprocess(file.read())
+        code = file.read()
     return code
 
 def lyra_ast(code):
@@ -114,17 +108,29 @@ def lyra_main():
         print("Compiled")
         sys.exit(1)
 
-    if not(argv.generate_ast) and not(argv.generate_ir) and not(argv.print_ast) \
-        and not(argv.print_ir) and not(argv.compile):
+    if argv.print_code:
+        print(code)
+
+    if not(argv.generate_ast) and not(argv.generate_ir) \
+        and not(argv.print_ast) \
+        and not(argv.print_ir) and not(argv.compile) \
+        and not(argv.print_code):
         lyra_run(module, cfunc)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("lyra")
     parser.add_argument("file", help="Target file")
-    parser.add_argument("-generate-ir", action='store_true',  help="Generate LLVM IR")
-    parser.add_argument("-generate-ast", action='store_true', help="Generate AST")
-    parser.add_argument("-print-ast", action='store_true', help="Print Abstract Syntax Tree")
-    parser.add_argument("-print-ir", action='store_true', help="Print LLVM IR")
-    parser.add_argument("-compile", "-c", help="Compile to native code")
+    parser.add_argument("-generate-ir", action='store_true',
+                            help="Generate LLVM IR")
+    parser.add_argument("-generate-ast", action='store_true',
+                            help="Generate AST")
+    parser.add_argument("-print-ast", action='store_true',
+                            help="Print Abstract Syntax Tree")
+    parser.add_argument("-print-ir", action='store_true',
+                            help="Print LLVM IR")
+    parser.add_argument("-compile", "-c",
+                            help="Compile to native code")
+    parser.add_argument("-print-code", action='store_true', 
+                            help="Pretty print code")
     argv = parser.parse_args()
     lyra_main()
