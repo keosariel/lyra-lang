@@ -13,6 +13,7 @@ import llvmlite.binding as llvm
 from pparser.Lexer import PLexer
 from pparser.Parser import PParser
 from compiler.compiler import Compiler
+from preprocessor.preprocessor import Outcommentor
 
 from ctypes import CFUNCTYPE, c_int, c_float
 from time import time
@@ -21,9 +22,14 @@ import sys
 import pprint
 import argparse
 
+def lyra_preprocess(code):
+    preprocessed = Outcommentor(code)
+    print(preprocessed.code)
+    return preprocessed.code
+
 def lyra_file(file):
     with open(file, 'r') as file:
-        code = file.read()
+        code = lyra_preprocess(file.read())
     return code
 
 def lyra_ast(code):

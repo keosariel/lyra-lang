@@ -31,6 +31,12 @@ def until_block(body,test):
 
     return ('Until',{'test':test,'body':body})
 
+def struct_call(name,params):
+    """
+    name (params*)
+    """
+    return ('StructCall', {'params':params,'name':name})
+
 def func_call(name,params):
     """
     name (params*)
@@ -49,4 +55,4 @@ def struct(name,struct_params,body):
     struct user (struct_params*)
     """
 
-    return ('Class', {'name': name, 'body': body, 'struct_params':struct_params if struct_params else []})
+    return ('Struct', {'name': name, 'body':body,'struct_params':struct_params if struct_params else []})
