@@ -1,4 +1,4 @@
-# Lyra - A discreet, syntax leftist, llvm ahead-of-time optimized, privacy, programming language 
+# Lyra - A discreet, syntax liveral, llvm ahead-of-time optimized programming language 
 ## Useful for everything from Verilog gate level synthesis to High Level Web Apps and Mobile apps with NoSQL
 ## Defeating your Antivirus soon by default running in curve25519 encrypted memory!
 
