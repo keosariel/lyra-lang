@@ -1,4 +1,6 @@
-# Lyra
+# Lyra - A discreet, leftist, programming language 
+
+
 
 This is a compiler for Lyra Language, built with Python 3.8+ and the LLVM framework using the llvmlite library.
  
