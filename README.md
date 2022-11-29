@@ -1,5 +1,5 @@
-# Lyra - A discreet, syntax leftist, llvm ahead-of-time programming language 
-## Defeating your Antivirus soon by default
+# Lyra - A discreet, syntax leftist, llvm ahead-of-time optimized, privacy, programming language 
+## Defeating your Antivirus soon by default!
 
 ![Lyra Lang](https://github.com/zdanl/lyra-lang/blob/main/github-header-image%20(1).png?raw=true)
 
