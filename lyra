@@ -10,8 +10,8 @@
 
 import llvmlite.binding as llvm
 
-from pparser.Lexer import PLexer
-from pparser.Parser import PParser
+from lexer.Lexer import PLexer
+from lexer.Parser import PParser
 from compiler.compiler import Compiler
 
 from ctypes import CFUNCTYPE, c_int, c_float

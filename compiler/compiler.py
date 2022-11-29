@@ -5,8 +5,8 @@
 # |____// ____| |__|   (____  / 
 #       \/                  \/
 
-from pparser.Lexer import PLexer
-from pparser.Parser import PParser
+from lexer.Lexer import PLexer
+from lexer.Parser import PParser
 
 from llvmlite import ir
 import pprint
