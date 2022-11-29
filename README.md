@@ -1,12 +1,15 @@
-# Programming language in python using llvmlite
+# Lyra
 
-
- This is simply a compiler for a simple language, built with Python 3.6+ and the LLVM framework using the llvmlite library.
+This is a compiler for Lyra Language, built with Python 3.8+ and the LLVM framework using the llvmlite library.
  
  ## Features
-- **it's fast**, because it should be so, together with LLVM's state of the art optimizations, but it won't ever oblige you to make an extra effort from your side just for the sake of performance
+- **it's fast**, because it should be so, together with LLVM's state of the art optimizations, but it won't ever oblige you to make
+                 an extra effort from your side just for the sake of performance
+
 - **it's compiled** using llvmlite
+
 - **it's statically typed** so you don't need to guess the type of the variable if your coworker didn't spend the time to use meaningful names and you can make use of compile-time checks, autocomplete and more
+
 - **it's simple and expressive** because the code should be easily readable and it shouldn't make you guess what it does
 
 Install the requirements
@@ -72,8 +75,6 @@ def main():int{
     return 0
 }
 ```
-#### You can also run the [mandelbrot set](https://github.com/keosariel/Programming-language-in-python-using-llvmlite/blob/main/test/mandelbrot_set.test) program in the [test folder](https://github.com/keosariel/Programming-language-in-python-using-llvmlite/tree/main/test)
-
 ## How to run it
 
 ```

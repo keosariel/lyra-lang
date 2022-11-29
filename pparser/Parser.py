@@ -1,5 +1,5 @@
-from src.pparser.Lexer import PLexer
-import src.pparser.utils as utils
+from pparser.Lexer import PLexer
+import pparser.utils as utils
 from sly import Parser
 import pprint
 
@@ -19,7 +19,6 @@ class PParser(Parser):
     @_("statements")
     def body(self, p):
         self.ast[1]['body'] = p.statements
-
     
     @_('statement')
     def statements(self, p):
@@ -34,7 +33,6 @@ class PParser(Parser):
     def statement(self,p):
         return ('Return',{'value':p.expr})
     
-        
     @_('DEF NAME LPAREN def_params RPAREN COLON NAME LBRACE statements RBRACE')
     def statement(self,p):
         return utils.function(p.NAME0,p.def_params,p.NAME1,p.statements)

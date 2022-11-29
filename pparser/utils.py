@@ -43,3 +43,10 @@ def function(name,def_params,ret,body):
     """
     
     return ('Def',{'name':name,'return':ret,'body':body, 'def_params':def_params if def_params else []})
+
+def struct(name,struct_params,body):
+    """
+    struct user (struct_params*)
+    """
+
+    return ('Class', {'name': name, 'body': body, 'struct_params':struct_params if struct_params else []})

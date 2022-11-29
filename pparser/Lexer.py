@@ -21,6 +21,7 @@ class PLexer(Lexer):
         FLOAT, 
         PLUS, 
         MINUS,
+        MULTI_LINE_COMMENT,
         DIVIDE,
         LPAREN, 
         RPAREN, 
@@ -35,7 +36,8 @@ class PLexer(Lexer):
         NE, 
         IF, 
         ELSE, 
-        DEF, 
+        DEF,
+        CLASS,
         RETURN,
         TIMES,
         COLON,
@@ -75,6 +77,7 @@ class PLexer(Lexer):
     NAME['if'] = IF
     NAME['else'] = ELSE
     NAME['def'] = DEF
+    NAME['class'] = CLASS
     NAME['return'] = RETURN
     NAME['while'] = WHILE
     NAME['until'] = UNTIL
@@ -102,6 +105,7 @@ class PLexer(Lexer):
     PLUS = r'\+'
     MINUS = r'-'
     TIMES = r'\*'
+    MULTI_LINE_COMMENT = r'\/\*\*(.|\n)+?\*\)'
     DIVIDE = r'/'
     MOD = r'%'
     COLON = r':'
@@ -109,6 +113,10 @@ class PLexer(Lexer):
 
     @_(r'#.*')
     def COMMENT(self, t):
+        pass
+
+    @_(r'\/\*\*(.|\n)+?\*\)')
+    def MULTI_LINE_COMMENT(self, t):
         pass
 
     def error(self, t):

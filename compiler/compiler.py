@@ -1,5 +1,12 @@
-from src.pparser.Lexer import PLexer
-from src.pparser.Parser import PParser
+# .__                           
+# |  |  ___.__._______ _____    
+# |  | <   |  |\_  __ \\__  \   
+# |  |__\___  | |  | \/ / __ \_ 
+# |____// ____| |__|   (____  / 
+#       \/                  \/
+
+from pparser.Lexer import PLexer
+from pparser.Parser import PParser
 
 from llvmlite import ir
 import pprint
@@ -8,12 +15,12 @@ class Compiler:
     
     def __init__(self):
         self.type_map = {
-            'bool':ir.IntType(1),
-            'int':ir.IntType(32),
-            'float':ir.FloatType(),
-            'double':ir.DoubleType(),
-            'void':ir.VoidType(),
-            'str':ir.ArrayType(ir.IntType(8),1), # Note i8 in most languages are characters
+            'bool':     ir.IntType(1),
+            'int':      ir.IntType(32),
+            'float':    ir.FloatType(),
+            'double':   ir.DoubleType(),
+            'void':     ir.VoidType(),
+            'str':      ir.ArrayType(ir.IntType(8),1), # Note i8 in most languages are characters
         }
 
         self.module = ir.Module('main')
