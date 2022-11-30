@@ -9,6 +9,7 @@ from lexer.Lexer import PLexer
 from lexer.Parser import PParser
 
 from llvmlite import ir
+
 import pprint
 
 class Compiler:
@@ -20,14 +21,16 @@ class Compiler:
             'float':    ir.FloatType(),
             'double':   ir.DoubleType(),
             'void':     ir.VoidType(),
-            # Note i8 in most languages are characters
+            # ? Note i8 in most languages are characters
             'str':      ir.ArrayType(ir.IntType(8),1),
         }
 
         self.module = ir.Module('main')
         
         # Defining builtin function (printf)
-        fnty = ir.FunctionType(self.type_map['int'], [ir.IntType(8).as_pointer()], var_arg=True)
+        fnty = ir.FunctionType(self.type_map['int'], 
+            [ir.IntType(8).as_pointer()], var_arg=True)
+
         func = ir.Function(self.module, fnty, 'printf')
 
         # This helps to keep track of Defined Variabled
@@ -50,7 +53,7 @@ class Compiler:
             elif branch[0] == 'Def':
                 self.visit_def(branch)
             elif branch[0] == 'Struct':
-                self.visit_struct(branch)
+                self.visit_struct(branch)      # <--------
             elif branch[0] == 'Return':
                 self.visit_return(branch)
             elif branch[0] == 'If':
@@ -61,7 +64,7 @@ class Compiler:
                 self.visit_until(branch)
             elif branch[0] == 'FuncCall':
                 self.visit_funccall(branch)
-            elif branch[0] == 'StructInit':
+            elif branch[0] == 'StructInit':     # <------- 
                 self.visit_structinit(branch)
                 
     def visit_struct(self,branch):
