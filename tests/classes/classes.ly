@@ -1,11 +1,11 @@
-class Admin(User) {
+struct Admin(User) {
     def kick(user_name):int {
     }
     def ban(user_name):int {
     }
 }
 
-class User() {
+struct User() {
 
     nick = ""
 

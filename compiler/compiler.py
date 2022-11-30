@@ -20,7 +20,8 @@ class Compiler:
             'float':    ir.FloatType(),
             'double':   ir.DoubleType(),
             'void':     ir.VoidType(),
-            'str':      ir.ArrayType(ir.IntType(8),1), # Note i8 in most languages are characters
+            # Note i8 in most languages are characters
+            'str':      ir.ArrayType(ir.IntType(8),1),
         }
 
         self.module = ir.Module('main')
@@ -48,6 +49,8 @@ class Compiler:
                 self.visit_assign(branch)
             elif branch[0] == 'Def':
                 self.visit_def(branch)
+            elif branch[0] == 'Struct':
+                self.visit_struct(branch)
             elif branch[0] == 'Return':
                 self.visit_return(branch)
             elif branch[0] == 'If':
@@ -58,11 +61,37 @@ class Compiler:
                 self.visit_until(branch)
             elif branch[0] == 'FuncCall':
                 self.visit_funccall(branch)
+            elif branch[0] == 'StructInit':
+                self.visit_structinit(branch)
                 
+    def visit_struct(self,branch):
+        name = branch[1]['name']
+        body = branch[1]['body']
+        params = branch[1]['struct_params']
+        params = params if params[0] else []
+
+        # Keep track of the name of each parameter
+        params_name = [x['name'] for x in params]
+        
+        # Keep track of the types of each parameter
+        params_type = [self.type_map[x['type']] for x in params]
+
+        # Functions return type
+        # return_type = self.type_map[branch[1]['return']]
+        # A Class definition has no return type
+
+        # Defining a class (no return type, parameters)
+        # is not possible in LLVM, so we have to do a Struct
+        # and attach a pointer to the Functions
+
+        # https://stackoverflow.com/questions/14307906/c-llvm-class-functionality
+
+        # This is some work
+    
     def visit_def(self,branch):
         name = branch[1]['name']
         body = branch[1]['body']
-        params = branch[1]['def_params']
+        params = branch[1]['struct_params']
         params = params if params[0] else []
 
         # Keep track of the name of each parameter
@@ -161,7 +190,10 @@ class Compiler:
         
         elif branch[0] == 'FuncCall':
                 return self.visit_funccall(branch)
-            
+        
+        elif branch[0] == 'StructInit':
+                return self.visit_structinit(branch)
+
         elif branch[0] == 'String':
             value = branch[1]['value']
             string,Type = self.strings(value)
@@ -213,6 +245,18 @@ class Compiler:
         func,_ = self.variables['printf']
         return self.builder.call(func,[format,*params])
     
+    def visit_structinit(self,branch):
+        name = branch[1]['name']
+        params = branch[1]['params']
+        
+        args = []
+        types = []
+        if params[0]:
+            for x in params:
+                val,_ = self.visit_value(x)
+                args.append(val)
+                types.append(_)
+        
     def visit_funccall(self,branch):
         name = branch[1]['name']
         params = branch[1]['params']
