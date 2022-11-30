@@ -2,7 +2,7 @@
 ## Useful for everything from Verilog gate level synthesis to High Level Web Apps and Web apps with NoSQL
 
 
-![Lyra Lang](https://github.com/zdanl/lyra-lang/blob/main/assets/art/header.png?raw=true)
+![Lyra Lang](https://github.com/mescalinnetworks/lyra-lang/blob/main/assets/art/header.png?raw=true)
 
 This is a compiler for Lyra Language, built with Python 3.8+ (soon Python3.12+ once we get llvmlite to run) and the LLVM framework using the python3-llvmlite library. It supports C/C++ type multiline comments, single line comments of both C/C++ and Python typical syntax/standards, also JuliaLang features as to commentary, and this doesn't stop with there. Contrary to Python as to dynamic implementation of its class structure and inheritance system of Object/Function Prototypes similiary thought as v8 Javascript prototypes; due to the dynamic nature of the language running itself, quite different from Javascript v8 in that manner, it supports (will support) a Lexically inbound Compiled Class Token, which Julia lacks by parallel integration of them with structs and wiring of functions into the structs, to the best of our knowledge, meaning that as in Python "def" or "func, Perl "sub", will be equal oppertunity lexical tokens contesting "class" including its parameters, but *not* the Lyra typical precondition of a method to announce its return value type, as in func test():int. This is tricky to implement in the Lexer and Parser. The useit-for-anything-but-multi-platform-cross-architecture-malware language  is very punctuation liberal and allows different styles of addressing memory from data structures. For example the following are legitimate accessors for both object attributes and dictionary keys ´´ -> :: : . ´´ 
 
