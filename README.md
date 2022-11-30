@@ -1,6 +1,6 @@
 # Lyra - A discreet, syntax liberal, llvm ahead-of-time optimized programming language 
-## Useful for everything from Verilog gate level synthesis to High Level Web Apps and Mobile apps with NoSQL
-## Defeating your Antivirus soon by default running in curve25519 encrypted memory!
+## Useful for everything from Verilog gate level synthesis to High Level Web Apps and Web apps with NoSQL
+
 
 ![Lyra Lang](https://github.com/zdanl/lyra-lang/blob/main/github-header-image%20(1).png?raw=true)
 
