@@ -3,7 +3,11 @@
 
 ![Lyra Lang](https://github.com/mescalinnetworks/lyra-lang/blob/main/assets/art/header.png?raw=true)
 
-This is the official description and, so far, documentation website (https://mescalin.notion.site/Lyra-Language-2022-f753e9918d0d47549236155c4ddb7af8) of the Lyra Programming Language. A typed, Python3/Perl5 syntax inspired, LLVM Ahead-Of-Time Compiled and Optimized, syntax liberal, lightweight but low-level capable, programming language for the design and manufacture of CPUs, SoCs and general microprocessors. 
+This is the official description and, so far, documentation website 
+
+https://mescalin.notion.site/Lyra-Language-2022-f753e9918d0d47549236155c4ddb7af8
+
+of the Lyra Programming Language. A typed, Python3/Perl5 syntax inspired, LLVM Ahead-Of-Time Compiled and Optimized, syntax liberal, lightweight but low-level capable, programming language for the design and manufacture of CPUs, SoCs and general microprocessors. 
 
 ## Road Map
 https://mescalin.notion.site/Lyra-Roadmap-2023-ca9fd5822b9449b39461ef03f0c72c49
@@ -33,10 +37,6 @@ Install the requirements
 ```bash
 pip3.8 install -r requirements.txt
 ```
-
-# ./tests
-
-> These are all working perfectly, a unittest like test runner is being built.
 
 ## ./lyra
 
