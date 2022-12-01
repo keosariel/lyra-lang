@@ -1,11 +1,13 @@
 # Lyra Programming Language
-## Useful for everything from Verilog gate level synthesis to High Level Programming
+## Useful for everything from Verilog Gate Level Synthesis to High Level Programming
 
 ![Lyra Lang](https://github.com/mescalinnetworks/lyra-lang/blob/main/assets/art/header.png?raw=true)
 
-This is a compiler for Lyra Language, built with Python 3.8+ (soon Python3.12+ once we get llvmlite to run) and the LLVM framework using the python3-llvmlite library. It supports C/C++ type multiline comments, single line comments of both C/C++ and Python typical syntax/standards, also JuliaLang features as to commentary, and this doesn't stop with there. Contrary to Python as to dynamic implementation of its class structure and inheritance system of Object/Function Prototypes similiary thought as v8 Javascript prototypes; due to the dynamic nature of the language running itself, quite different from Javascript v8 in that manner, it supports (will support) a Lexically inbound Compiled Class Token, which Julia lacks by parallel integration of them with structs and wiring of functions into the structs, to the best of our knowledge, meaning that as in Python "def" or "func, Perl "sub", will be equal oppertunity lexical tokens contesting "class" including its parameters, but *not* the Lyra typical precondition of a method to announce its return value type, as in func test():int. This is tricky to implement in the Lexer and Parser. The useit-for-anything-but-multi-platform-cross-architecture-malware language  is very punctuation liberal and allows different styles of addressing memory from data structures. For example the following are legitimate accessors for both object attributes and dictionary keys ´´ -> :: : . ´´ 
+This is the official description and, so far, documentation website (https://mescalin.notion.site/Lyra-Language-2022-f753e9918d0d47549236155c4ddb7af8) of the Lyra Programming Language. A typed, Python3/Perl5 syntax inspired, LLVM Ahead-Of-Time Compiled and Optimized, syntax liberal, lightweight but low-level capable, programming language for the design and manufacture of CPUs, SoCs and general microprocessors. 
 
 ## Road Map
+https://mescalin.notion.site/Lyra-Roadmap-2023-ca9fd5822b9449b39461ef03f0c72c49
+
 | Predicted Version | Description of Progress | Timestamp |
 | --------------- | --------------- | --------------- |
 | Original | Type system, functional language, Lexer/Compiler | This was the original work |
@@ -14,8 +16,6 @@ This is a compiler for Lyra Language, built with Python 3.8+ (soon Python3.12+ o
 | 0.3 | Support for system calls like files  | 05/12/2022 |
 | 0.3 | Support for system calls like sockets  | 15/12/2022 |
 | 0.4 | And so on  | 20/12/2022 |
-
-
 
 You may soon use indentation OR sharp braces, and you may use a semicolon whenever you like. 
  
