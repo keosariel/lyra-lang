@@ -1,5 +1,5 @@
 # Lyra Programming Language
-## Useful for everything from Verilog Gate Level Synthesis to High Level Programming
+## A language for the creation of computer chips and general programming
 
 ![Lyra Lang](https://github.com/mescalinnetworks/lyra-lang/blob/main/assets/art/header.png?raw=true)
 
