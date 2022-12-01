@@ -1,6 +1,5 @@
-# Lyra - A discreet, syntax liberal, llvm ahead-of-time optimized programming language 
-## Useful for everything from Verilog gate level synthesis to High Level Web Apps and Web apps with NoSQL
-
+# Lyra Programming Language
+## Useful for everything from Verilog gate level synthesis to High Level Programming
 
 ![Lyra Lang](https://github.com/mescalinnetworks/lyra-lang/blob/main/assets/art/header.png?raw=true)
 
