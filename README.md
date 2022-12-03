@@ -4,16 +4,12 @@ Lyra is a powerful and versatile programming language that combines the simplici
 This is the official description and, so far, documentation website.
 
 ## Road Map
-https://mescalin.notion.site/Lyra-Roadmap-2023-ca9fd5822b9449b39461ef03f0c72c49
 
 | Predicted Version | Description of Progress | Timestamp |
 | --------------- | --------------- | --------------- |
 | Original | Type system, functional language, Lexer/Compiler | This was the original work |
-| 0.2 | Multiline comments and different styles of it are working | 30/11/2022 |
-| 0.2 | Implementing support for OOP is in Progress | 30/11/2022 |
-| 0.3 | Support for system calls like files  | 05/12/2022 |
-| 0.3 | Support for system calls like sockets  | 15/12/2022 |
-| 0.4 | And so on  | 20/12/2022 |
+| 0.1 | Multiline comments and different styles of it were contributed, OOP discussed | 30/11/2022 |
+| 0.2 | Implementation of the entire AST is still in progress | 03/12/2022 |
 
 You may soon use indentation OR sharp braces, and you may use a semicolon whenever you like. 
  
