@@ -25,7 +25,7 @@ You may soon use indentation OR sharp braces, and you may use a semicolon whenev
 
 
 
-## How to run it
+## How to run, compile or translate .ly files/projects
 
 ```
 ./lyra --compile <filename>
