@@ -68,14 +68,18 @@ def main():int{
 ## Conditionals
 
 ```
-def main():int{
-
-    age = 18
-    if age == 18{
+def if-expression():int{
+    server_load = 300
+    server_load ^= 44
+    
+    if server_load < 200 {
         printf('wow you are 18\n')
-    }else{
+    } else {
         printf('i guess you are not 18\n')
     }
+    
+    if server_load >= 400:
+        printf('foo')
 
     return 0
 }
@@ -103,4 +107,21 @@ def main():int{
 
     return 0
 }
+````
 
+## Multi Line Comments and Single Line Flavours
+
+```
+# this is a comment
+
+#=
+    this is a julia style multi line comment
+#=
+
+/*
+    this is a c style multi line comment
+*/
+
+// this is a c style single line comment
+
+```
