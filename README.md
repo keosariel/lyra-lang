@@ -1,6 +1,6 @@
 # Lyra Programming Language
 
-Lyra is a powerful and versatile programming language that combines the simplicity and expressiveness of Python3.12 and Perl5.10 with the power and efficiency of asynchronous programming and performance of LLVM. Its friendly and intuitive syntax makes it easy to learn and use, while its advanced compilation, subset and tools guide for mission assurance in various tasks. Its design and optimization techniques allow it to tackle even the most demanding engineering tasks. With Lyra, you can design, synthesize, and manufacture CPUs, SoCs, and other microprocessors, as well build scalable and efficient operating systems, web and mobile apps, and more.
+Lyra is a powerful and versatile programming language that combines the simplicity and expressiveness of Python3.12 and Perl5.10 with the power and efficiency of asynchronous programming and performance of LLVM. Its friendly and intuitive syntax makes it easy to learn and use, while its advanced compilation, subset and tools guide for mission assurance in various fields. Its design and optimization techniques allow it to tackle even the most demanding engineering tasks. With Lyra, you can design, synthesize, and manufacture CPUs, SoCs, and other microprocessors, as well build scalable and efficient operating systems, web and mobile apps, and more.
 This is the official description and, so far, documentation website 
 
 https://mescalin.notion.site/Lyra-Language-2022-f753e9918d0d47549236155c4ddb7af8
