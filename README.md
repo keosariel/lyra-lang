@@ -41,7 +41,7 @@ This is the compiler.
 
 It supports multiple features as in just printing the AST, generating LLVM IR, compilation, or translation into Hardware Description Language (HDL).
 
-## Functions, synonym naming conventions and Braces OR Indents
+## Functions, Synonym Naming Conventions and Braces OR Indents
 
 ```
 def logic_gate:2(n_input:int):int{
