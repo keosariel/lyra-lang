@@ -7,7 +7,7 @@ This is the official description and, so far, documentation website.
 
 | Predicted Version | Description of Progress | Timestamp |
 | --------------- | --------------- | --------------- |
-| Original | Type system, functional language, Lexer/Compiler | This was the original work |
+| Original | Type system, Functional Language, Lexer/Compiler | This was the original work |
 | 0.1 | Multiline comments and different styles of it were contributed, OOP discussed | 30/11/2022 |
 | 0.2 | Implementation of the entire AST is still in progress | 03/12/2022 |
 
