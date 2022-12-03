@@ -23,11 +23,19 @@ You may soon use indentation OR sharp braces, and you may use a semicolon whenev
 
 - **it's simple and expressive** because the code should be easily readable and it shouldn't make you guess what it does, but you can give it your very personal touch and style
 
-Install the requirements
-```bash
-pip3.8 install -r requirements.txt
 ```
+## How to run it
 
+```
+./lyra --compile <filename>
+./lyra --generate-ast <filename>
+./lyra --print-ast <filename>
+./lyra --generate-llvm <filename>
+./lyra --print-llvm <filename>
+./lyra --generate-hdl <filename>
+./lyra --help
+
+```
 ## ./lyra
 
 This is the compiler.
@@ -87,16 +95,4 @@ def main():int{
 
     return 0
 }
-```
-## How to run it
 
-```
-./lyra --compile <filename>
-./lyra --generate-ast <filename>
-./lyra --print-ast <filename>
-./lyra --generate-llvm <filename>
-./lyra --print-llvm <filename>
-./lyra --generate-hdl <filename>
-./lyra --help
-
-```
