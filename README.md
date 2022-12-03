@@ -92,4 +92,11 @@ def main():int{
 
 ```
 ./lyra --compile <filename>
+./lyra --generate-ast <filename>
+./lyra --print-ast <filename>
+./lyra --generate-llvm <filename>
+./lyra --print-llvm <filename>
+./lyra --generate-hdl <filename>
+./lyra --help
+
 ```
