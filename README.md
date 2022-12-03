@@ -23,7 +23,8 @@ You may soon use indentation OR sharp braces, and you may use a semicolon whenev
 
 - **it's simple and expressive** because the code should be easily readable and it shouldn't make you guess what it does, but you can give it your very personal touch and style
 
-```
+
+
 ## How to run it
 
 ```
@@ -36,6 +37,7 @@ You may soon use indentation OR sharp braces, and you may use a semicolon whenev
 ./lyra --help
 
 ```
+ 
 ## ./lyra
 
 This is the compiler.
