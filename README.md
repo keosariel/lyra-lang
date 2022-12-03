@@ -39,16 +39,25 @@ You may soon use indentation OR sharp braces, and you may use a semicolon whenev
 
 This is the compiler.
 
-It supports multiple features as in just printing the AST, generating LLVM IR, compiling statically before not running, or just running.
+It supports multiple features as in just printing the AST, generating LLVM IR, compilation, or translation into Hardware Description Language (HDL).
 
-The language was inspired by the originally forked Github repository type-wise, and clearly a mix of Python3 and Perl5.10 syntax wise.
+## Functions, synonym naming conventions and Braces OR Indents
 
 ```
-def fact(n:int):int{
-    if n <= 1{
+def logic_gate:2(n_input:int):int{
+    if n_input <= 1{
         return 1
     }
-    return n * fact(n-1)
+    return n * fact(n_input-1)
+}
+
+sub logic_gate_2(n:int):int:
+    if n > 5:
+        return 0
+
+function logic_gate_3(n_input1:int, n_input2:sha1) {
+    n_input2 ^= n_input1 << 0x44
+    return n_input2
 }
 
 def main():int{
