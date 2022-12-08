@@ -1,2 +1,2 @@
-llvmlite==0.29.0
-sly==0.3
+lark==1.1.2
+llvmlite==0.39.1
