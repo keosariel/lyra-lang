@@ -1,1 +1,1 @@
-from .grammar import parse_lyra_source
+from .grammar import parse_lyra_source, parse_lyra_tree

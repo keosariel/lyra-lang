@@ -1,8 +1,8 @@
 NODE_DEFAULT_FIELDS = {
     "source",
-    "line_no",
-    "start_pos",
-    "end_pos"
+    "line",
+    "column",
+    "end_column"
 }
 
 class LyraNode:
@@ -13,13 +13,19 @@ class LyraNode:
     __fields__ = NODE_DEFAULT_FIELDS
 
     def __init__(self, **kwargs):
-        self._fields = self.__fields__
+        self._fields = set(self.__fields__).union(NODE_DEFAULT_FIELDS)
 
         for field in self._fields:
             if field in kwargs:
                 setattr(self, field, kwargs[field])
             else:
                 setattr(self, field, None)
+
+    def __repr__(self):
+        props = ", ".join([f"{k}={getattr(self, k, None)}" for k in self.__fields__ ])
+        return f"{self.__class__.__name__}({props})"
+
+
 
 class Module(LyraNode):
     __fields__ = ("body",)
@@ -49,7 +55,7 @@ class BreakStatement(Statement):
     __fields__ = ()
 
 class Declaration(Statement):
-    __fields__ = ("name", "type", "expr")
+    __fields__ = ("target", "type", "expr")
 
 class Assign(Statement):
     __fields__ = ("target", "expr")

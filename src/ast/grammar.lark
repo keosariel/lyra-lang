@@ -4,7 +4,7 @@ module: ( COMMENT
         | function_def
         | _NEWLINE )*
 
-parameter: NAME ":" type ["=" expr]
+parameter: NAME ":" type
 parameters: parameter ("," parameter?)*
 
 _FUNC_DECL: "def"
@@ -49,7 +49,7 @@ until_stmt: "until" expr body
 
 
 type: NAME ("[" expr "]")*
-id: NAME
+?id: NAME
 variable: "var" id ":" type
 declaration: variable ["=" expr]
 assign: variable_access "=" expr
