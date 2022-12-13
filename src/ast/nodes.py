@@ -21,6 +21,22 @@ class LyraNode:
             else:
                 setattr(self, field, None)
 
+    def to_dict(self):
+        d = {k: self._to_dict(getattr(self, k, None)) for k in self.__fields__}
+        d["node"] = self.__class__.__name__
+        return d
+
+    def _to_dict(self, item):
+        if isinstance(item, list):
+            for i, it in enumerate(item):
+                v = self._to_dict(it)
+                item[i] = v
+            return item
+        elif isinstance(item, LyraNode):
+            return item.to_dict()
+
+        return item
+
     def __repr__(self):
         props = ", ".join([f"{k}={getattr(self, k, None)}" for k in self.__fields__ ])
         return f"{self.__class__.__name__}({props})"
@@ -76,7 +92,10 @@ class Expression(LyraNode):
     pass
 
 class GetAttribute(Expression):
-    __fields__ = ("value", "attr")
+    __fields__ = ("target", "attr")
+
+class GetItem(Expression):
+    __fields__ = ("target", "index")
 
 class Call(Expression):
     __fields__ = ("target", "arglist")

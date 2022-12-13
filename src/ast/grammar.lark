@@ -77,7 +77,7 @@ aug_assign: variable_access aug_operator "=" expr
 // Expressions
 expr: operation
 
-arg: expr
+?arg: expr
 kwarg: NAME "=" expr
 ?argument: (arg | kwarg)
 arguments: argument ("," argument)* [","]
