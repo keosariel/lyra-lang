@@ -47,7 +47,7 @@ def main(): i32 {
 
   // loops
 
-  while a < 20 {
+  while a  20 {
 	break;
 	continue;
   }
