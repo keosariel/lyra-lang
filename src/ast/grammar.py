@@ -25,7 +25,7 @@ def parse_lyra_source(code, source=None):
         err_msg += code_lines[line-1] + "\n"
         err_msg += " "*(column-1) + "^"
         print(err_msg)
-        exit(0)
+        exit(1)
 
 def parse_lyra_tree(code):
     transformer = ast_utils.create_transformer(transformer_module, LyraTransformer())
