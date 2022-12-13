@@ -8,7 +8,19 @@ transformer_module = sys.modules[__name__]
 class LyraTransformer(Transformer):
 
     def module(self, node):
-        return node[0]
+        return node
+
+    def struct_def(self, node):
+        target, *members = node
+        return self.init_node(
+            StructDef,
+            target,
+            target=target,
+            members=members
+        )
+
+    def struct_member(self, node):
+        return node
 
     def function_sig(self, node):
         fname, fparams, fret = node
@@ -32,7 +44,7 @@ class LyraTransformer(Transformer):
     
     def parameter(self, node):
         return node
-    
+        
     def type(self, node):
         return node[0]
     
@@ -41,14 +53,13 @@ class LyraTransformer(Transformer):
         node.reverse()
 
         for block in node:
-            print(block)
             if len(block if block else []) == 2:
                 # means it has a condition i.e if or elif block
                 cond, body = block
                 else_block = self.init_node(
                     IfBlock, cond, expr=cond, body=body, orelse=else_block
                 )
-            else:
+            elif block:
                 else_block = block[0]
 
         return else_block
@@ -60,6 +71,18 @@ class LyraTransformer(Transformer):
     def until_stmt(self, node):
         cond, body = node
         return self.init_node(UntilBlock, cond, expr=cond, body=body)
+    
+    def continue_stmt(self, node):
+        return self.init_node(ContinueStatement, node[0])
+
+    def break_stmt(self, node):
+        return self.init_node(BreakStatement, node[0])
+
+    def return_stmt(self, node):
+        return self.init_node(ReturnStatement, node[0], expr=node[1])
+    
+    def pass_stmt(self, node):
+        return self.init_node(PassStatement, node[0])
 
     def default_exec(self, node):
         return node
@@ -109,7 +132,15 @@ class LyraTransformer(Transformer):
             target=target,
             index=index
         )
-
+    
+    def get_attr(self, node):
+        target, attr = node
+        return self.init_node(
+            GetAttribute,
+            target,
+            target=target,
+            attr=attr
+        )
     def assign(self, node):
         target, val = node
         return self.init_node(
@@ -127,8 +158,12 @@ class LyraTransformer(Transformer):
 
     def number(self, node):
         n = node[0]
-        return self.init_node(Number, n, value=n.value)
+        return self.init_node(Number, n, value=n.value, type=n.type)
     
+    def string(self, node):
+        n = node[0]
+        return self.init_node(String, n, value=n.value, type=n.type)
+
     def NAME(self, node):
         return self.init_node(Name, node, value=node.value)
 

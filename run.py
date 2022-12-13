@@ -11,5 +11,5 @@ target = sys.argv[1]
 with open(target, "r") as fp:
     code = fp.read()
     # print(parse_lyra_source(code))
-    #pprint(parse_lyra_tree(code).to_dict())
-    pprint(parse_lyra_tree(code))
+    pprint([i.to_dict() for i in parse_lyra_tree(code)])
+    # pprint(parse_lyra_tree(code))

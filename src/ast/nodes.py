@@ -23,7 +23,7 @@ class LyraNode:
 
     def to_dict(self):
         d = {k: self._to_dict(getattr(self, k, None)) for k in self.__fields__}
-        d["node"] = self.__class__.__name__
+        d["nodeType"] = self.__class__.__name__
         return d
 
     def _to_dict(self, item):
@@ -47,7 +47,7 @@ class Module(LyraNode):
     __fields__ = ("body",)
 
 class StructDef(LyraNode):
-    __fields__ = ("name", "members")
+    __fields__ = ("target", "members")
 
 class FunctionDef(LyraNode):
     __fields__ = ("type", "arglist", "target", "body")
@@ -56,6 +56,9 @@ class Statement(LyraNode):
     pass
 
 class BreakStatement(Statement):
+    __fields__ = ()
+
+class PassStatement(Statement):
     __fields__ = ()
 
 class ContinueStatement(Statement):

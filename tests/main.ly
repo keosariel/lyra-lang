@@ -52,6 +52,8 @@ def main(): i32 {
 	continue;
   }
   
+  v = name.age();
+  n = person.names[0];
 
-  return 0;
+  return;
 }

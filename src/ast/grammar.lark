@@ -29,16 +29,16 @@ stmt: if_stmt | while_stmt | until_stmt
     | expr) ";") [COMMENT] [_NEWLINE]
 
 
-_PASS: "pass"
-_BREAK: "break"
-_CONTINUE: "continue"
-_RETURN: "return"
+PASS: "pass"
+BREAK: "break"
+CONTINUE: "continue"
+RETURN: "return"
 _PRINT: "print"
 
-pass_stmt: _PASS
-break_stmt: _BREAK
-continue_stmt: _CONTINUE
-return_stmt: _RETURN expr
+pass_stmt: PASS
+break_stmt: BREAK
+continue_stmt: CONTINUE
+return_stmt: RETURN [expr]
 
 body: "{" ([COMMENT] _NEWLINE | stmt)+ "}"
 cond_exec:  expr body
@@ -48,7 +48,7 @@ while_stmt: "while" expr body
 until_stmt: "until" expr body 
 
 
-type: NAME ("[" expr "]")*
+type: NAME | get_item
 ?id: NAME
 variable: "var" id ":" type
 declaration: variable ["=" expr]
