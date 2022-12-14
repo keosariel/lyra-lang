@@ -10,10 +10,10 @@ struct Car { model: char[32]; date: int; }
 def func1() { pass; }
 
 // No return
-def func2(a_val: int) { pass; }
+def func2(a_val: i64) { pass; }
 
 // Params anf return
-def func3(a: int): int { pass; }
+def func3(a: i64): i64 { pass; }
 
 // With body
 def func4(a: i32, b: char[32]): i32 {
@@ -30,7 +30,7 @@ def func4(a: i32, b: char[32]): i32 {
 }
 
 // Main function
-def main(): i32 {
+def main(): i64 {
   
   // function call test
   params_func(34, "test");

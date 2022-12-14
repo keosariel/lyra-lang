@@ -81,7 +81,7 @@ class LyraVoidType(LyraBaseType):
     def __repr__(self):
         return f"<{self.__class__.__name__} (void)>"
 
-class LyraFunctionType:
+class LyraFunctionType(LyraBaseType):
 
     llvm_base_type = ir.FunctionType
     llvm_type = None
@@ -109,10 +109,10 @@ class LyraFunctionType:
         self.return_type = ret
 
     def str_rep(self):
-        return f"function({','.join([x.str_rep() for x in self.args])}):{self.return_type.str_rep()}"
+        return f"def({','.join([x.str_rep() for x in self.args])}):{self.return_type.str_rep()}"
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} (function({self.args})->{self.return_type})>"
+        return f"<{self.__class__.__name__} ({self.str_rep()})>"
 
 
 

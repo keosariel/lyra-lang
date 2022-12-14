@@ -7,6 +7,7 @@ PRIMITIVES = {
     "i32": LyraIntType(32),
     "i64": LyraIntType(64),
     "bool": LyraBoolType(),
+    "char": LyraIntType(8),
     "void": LyraVoidType(),
     "f32": LyraFloatType(),
     "f64": LyraDoubleType()
@@ -17,8 +18,9 @@ class LyraTypeChecker:
     def __init__(self, module, source):
         self.module = module
         self.source = source.split("\n")
-
-
+        self.types_def = PRIMITIVES
+        self.func_def = {}
+        
         for node in module:
             self.visit(node)
 
@@ -31,32 +33,43 @@ class LyraTypeChecker:
     def visit_function(self, node):
         return_type = node.type
         arglist = node.arglist or []
-        func_name = node.target
+        func_name = node.target.value
 
         exists = []
+        _lyra_ret = self._type_exists(return_type)
+        _lyra_params = []
+
         for name, typ in arglist:
             name_str = name.value
 
             if name_str in exists:
-                self.error(f"Arguement `{name_str}`appears more than once", name)
+                self.error(f"Arguement `{name_str}` appears more than once", name)
             else:
                 exists.append(name_str)
 
-            print(name, typ)
+            _lyra_params.append(self._type_exists(typ))
 
-    def _check_name(self, node):
-        """
-        A check to confirm a node is of type `nodes.Name`
+        func_typ =  LyraFunctionType(_lyra_ret, *_lyra_params)
+        func_sig = f"{func_name}_{func_typ.str_rep()}"
 
-        Args:
-            node (nodes.LyraNode): node to check
+        setattr(node, "functype", func_typ)
+        self.func_def[func_sig] = func_typ
 
-        Returns:
-            value (None)
-        """
+    def _type_exists(self, node):
+        if node is None:
+            return self.types_def["void"]
 
-        if not isinstance(node, Name):
-            self.error("Expected an Identifier", node)
+        if isinstance(node, Name):
+            n_str = node.value
+
+            if n_str not in self.types_def:
+                self.error(f"Unknown datatype `{n_str}`", node)
+            return self.types_def[n_str]
+        
+        elif isinstance(node, GetItem):
+            n_type = self._type_exists(node.target)
+            # TODO: create a array with int constant check
+            return n_type
 
     def error(self, msg, node):
         line = node.line
