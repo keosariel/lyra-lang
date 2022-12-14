@@ -2,13 +2,15 @@
 ### LangSec Programming Language for the Semiconductor Industry
 ![NylonCat](https://i.ibb.co/PtzDCYK/nylon.gif)
 
-[https://lyralang.org](https://lyralang.org)
+- Website: [https://lyralang.org](https://lyralang.org)
+- Join us on Discord: https://discord.gg/SxjKxGmPUY
 
 --------------
-![Lyra Logo]([assets/arts/lyra1.jpg](https://github.com/zdanl/lyra-lang/raw/main/assets/arts/lyra3.png)
-
 Lyra is a powerful and versatile programming language that combines the simplicity and expressiveness of Python3.12 and Perl5.10 with the power and efficiency of asynchronous programming and performance of LLVM. Its friendly and intuitive syntax makes it easy to learn and use, while its advanced compilation, subset and tools lead to mission assurance in various fields. Its design and optimization techniques allow it to tackle even the most demanding engineering tasks. With Lyra, you can design, synthesize, and manufacture CPUs, SoCs, and other microprocessors, as well build scalable and efficient operating systems, web and mobile apps, and more.
 This is the official description and, so far, documentation website.
+
+![Lyra Logo](https://github.com/zdanl/lyra-lang/raw/main/assets/arts/lyra3.png)
+
 
 ## Road Map
 
