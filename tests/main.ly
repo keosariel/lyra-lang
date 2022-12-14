@@ -10,7 +10,7 @@ struct Car { model: char[32]; date: int; }
 def func1() { pass; }
 
 // No return
-def func2(a: int) { pass; }
+def func2(a_val: int) { pass; }
 
 // Params anf return
 def func3(a: int): int { pass; }
@@ -47,7 +47,7 @@ def main(): i32 {
 
   // loops
 
-  while a  20 {
+  while a < 20 {
 	break;
 	continue;
   }
