@@ -5,6 +5,15 @@
 
 ![NylonCat](https://i.ibb.co/PtzDCYK/nylon.gif)
 
+| Predicted Version | Description of Progress | Timestamp |
+| --------------- | --------------- | --------------- |
+| Original | Type system, Functional Language, Lexer/Compiler | This was the original work |
+| 0.1 | Multiline comments and different styles of it were contributed, OOP discussed | 30/11/2022 |
+| 0.2 | Implementation of the entire AST is still in progress | 03/12/2022 |
+| 0.3 | LLVM Compiler Synthesis with OpenAi, @keo needs to establish contact | 15/12/2022 |
+| 0.4 | Sockets, Filesystem | 15/01/2023 |
+| 0.5 | Threads, Preforking | 30/01/2023 |
+
 --------------
 Lyra is a powerful and versatile programming language that combines the simplicity and expressiveness of Python3.12 and Perl5.10 with the power and efficiency of asynchronous programming and performance of LLVM. Its friendly and intuitive syntax makes it easy to learn and use, while its advanced compilation, subset and tools lead to mission assurance in various fields. Its design and optimization techniques allow it to tackle even the most demanding engineering tasks. With Lyra, you can design, synthesize, and manufacture CPUs, SoCs, and other microprocessors, as well build scalable and efficient operating systems, web and mobile apps, and more.
 This is the official description and, so far, documentation website.
