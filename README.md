@@ -3,6 +3,8 @@
 - Website: [https://lyralang.org](https://lyralang.org)
 - Join us on Discord: https://discord.gg/SxjKxGmPUY
 
+---
+
 | Predicted Version | Description of Progress | Timestamp |
 | --------------- | --------------- | --------------- |
 | Original | Type system, Functional Language, Lexer/Compiler | This was the original work |
