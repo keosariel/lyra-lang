@@ -94,13 +94,13 @@ class LyraTransformer(Transformer):
         return node
 
     def declaration(self, node):
-        (target, _type), expr = node
+        (target, _type), value = node
         return self.init_node(
             Declaration,
             target,
             target=target,
             type=_type,
-            expr=expr
+            value=value
         )
 
     def body(self, node):
@@ -147,7 +147,7 @@ class LyraTransformer(Transformer):
                 Assign,
                 target,
                 target=target,
-                expr=val
+                value=val
         )
 
     def expr(self, node):
@@ -303,17 +303,17 @@ class LyraTransformer(Transformer):
     def uadd(self, node):
         op = "+"
         lhs = node[0]
-        return self.init_node(BinaryOp, lhs, op=op, lhs=lhs, rhs=None)
+        return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
 
     def usub(self, node):
         op = "-"
         lhs = node[0]
-        return self.init_node(BinaryOp, lhs, op=op, lhs=lhs, rhs=None)
+        return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
 
     def invert(self, node):
         op = "~"
         lhs = node[0]
-        return self.init_node(BinaryOp, lhs, op=op, lhs=lhs, rhs=None)
+        return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
 
     def init_node(self, node_type, node, **kwargs):
         kwargs.update(dict(

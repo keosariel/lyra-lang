@@ -74,10 +74,10 @@ class BreakStatement(Statement):
     __fields__ = ()
 
 class Declaration(Statement):
-    __fields__ = ("target", "type", "expr")
+    __fields__ = ("target", "type", "value")
 
 class Assign(Statement):
-    __fields__ = ("target", "expr")
+    __fields__ = ("target", "value")
 
 class Block(LyraNode):
     __fields__ = ("expr", "body")

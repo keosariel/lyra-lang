@@ -169,8 +169,8 @@ call: variable_access "(" [arguments] ")"
      | list -> setup_list
      | "(" operation ")"
 
-number: (DEC_NUMBER 
-        | HEX_NUMBER 
+number: (HEX_NUMBER 
+        | DEC_NUMBER 
         | OCT_NUMBER 
         | FLOAT_NUMBER 
         | BIN_NUMBER)

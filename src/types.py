@@ -4,6 +4,9 @@ from llvmlite import ir
 class LyraBaseType:
     llvm_base_type = None
     llvm_type = None
+    bin_ops = ["+", "-", "/", "*"]
+    bit_ops = [">>", "<<", "|", "&", "~"]
+    bool_ops = ["==", "!=", ">", "<", "!"]
 
 class LyraIntType(LyraBaseType):
 
@@ -22,11 +25,17 @@ class LyraIntType(LyraBaseType):
     def as_pointer(self):
         return self.llvm_type.as_pointer()
 
+    def __eq__(self, other):
+        return self.bits == other.bits and self.signed == other.signed
+
     def __repr__(self):
         rep = "i" if self.signed else "u"
         return f"<{self.__class__.__name__} ({rep}{self.bits})>"
 
 class LyraBoolType(LyraIntType):
+    bin_ops = []
+    bit_ops = []
+    bool_ops = ["==", "!=", "!"]
 
     def __init__(self):
         super().__init__(bits=1, signed=False)
@@ -41,12 +50,16 @@ class LyraFloatType(LyraBaseType):
 
     llvm_base_type = ir.FloatType
     llvm_type = llvm_base_type()
+    bit_ops = []
 
     def as_pointer(self):
         return self.llvm_type.as_pointer()
 
     def str_rep(self):
         return "f32"
+
+    def __eq__(self, other):
+        return self.llvm_type == other.llvm_type
 
     def __repr__(self):
         return f"<{self.__class__.__name__} (f32)>"
@@ -56,13 +69,17 @@ class LyraDoubleType(LyraBaseType):
 
     llvm_base_type = ir.DoubleType
     llvm_type = llvm_base_type()
-
+    bit_ops = []
+    bool_ops = []
 
     def as_pointer(self):
         return self.llvm_type.as_pointer()
 
     def str_rep(self):
         return "f64"
+
+    def __eq__(self, other):
+        return self.llvm_type == other.llvm_type
 
     def __repr__(self):
         return f"<{self.__class__.__name__} (f64)>"
@@ -71,6 +88,9 @@ class LyraVoidType(LyraBaseType):
 
     llvm_base_type = ir.VoidType
     llvm_type = llvm_base_type()
+    bin_ops = []
+    bit_ops = []
+    bool_ops = []
 
     def as_pointer(self):
         return self.llvm_type.as_pointer()
@@ -85,6 +105,9 @@ class LyraFunctionType(LyraBaseType):
 
     llvm_base_type = ir.FunctionType
     llvm_type = None
+    bin_ops = []
+    bit_ops = []
+    bool_ops = []
 
     def __init__(self, ret, *args):
         """
