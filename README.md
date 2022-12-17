@@ -10,6 +10,9 @@ This is the official description and, so far, documentation website.
 | Original | Type system, Functional Language, Lexer/Compiler | This was the original work |
 | 0.1 | Multiline comments and different styles of it were contributed, OOP discussed | 30/11/2022 |
 | 0.2 | Implementation of the entire AST is still in progress | 03/12/2022 |
+| 0.3 | LLVM Compiler Synthesis with OpenAi, @keo needs to establish contact | 15/12/2022 |
+| 0.4 | Sockets, Filesystem | 15/01/2023 |
+| 0.5 | Threads, Preforking | 30/01/2023 |
 
 You may soon use indentation OR sharp braces, and you may use a semicolon whenever you like. 
  
