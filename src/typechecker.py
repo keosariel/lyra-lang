@@ -13,6 +13,14 @@ PRIMITIVES = {
     "f64": LyraDoubleType()
 }
 
+"""
+TODO: strings
+TODO: array & struct property assignment
+TODO: structs
+TODO: pointers
+TODO: function calls return type
+"""
+
 class LyraTypeChecker:
 
     def __init__(self, module, source):
