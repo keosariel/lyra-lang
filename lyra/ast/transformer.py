@@ -1,6 +1,6 @@
 import sys
 from lark import Transformer, Tree, Token
-from .nodes import *
+from lyra.ast.nodes import *
 
 transformer_module = sys.modules[__name__]
 

@@ -1,7 +1,7 @@
-from src.ast import parse_lyra_source, parse_lyra_tree
 import sys
 from pprint import pprint
-from src.typechecker import LyraTypeChecker
+from lyra.typechecker import LyraTypeChecker
+from lyra.ast import parse_lyra_source, parse_lyra_tree
 
 if len(sys.argv) < 2:
     print("lyra file required!")

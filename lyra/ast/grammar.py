@@ -1,9 +1,9 @@
 from lark import Lark, ast_utils
 from lark.exceptions import UnexpectedToken
-from .transformer import LyraTransformer, transformer_module
+from lyra.ast.transformer import LyraTransformer, transformer_module
 
 def lyra_grammar():
-    with open("./src/ast/grammar.lark", "r") as fp:
+    with open("./lyra/ast/grammar.lark", "r") as fp:
         lyra_parser = Lark(fp.read(), start="module", parser='lalr')
 
     return lyra_parser

@@ -1,7 +1,7 @@
 # Typed Lyra: static typechecker
 
-from src.types import *
-from src.ast.nodes import *
+from lyra.types import *
+from lyra.ast.nodes import *
 
 PRIMITIVES = {
     "i32": LyraIntType(32),
