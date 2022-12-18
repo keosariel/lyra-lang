@@ -26,6 +26,17 @@ class LyraTypeChecker:
             self.visit(node, {})
 
     def visit(self, node, s_locals):
+        """
+        Calls the right visit function for `node`
+
+        Args:
+            node (ast.LyraNode): target lyra node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (types.LyraBaseType)
+        """
+
         lyra_type = None
 
         if isinstance(node, FunctionDef):
@@ -77,13 +88,35 @@ class LyraTypeChecker:
         return lyra_type
 
     def visit_return(self, node, s_locals):
+        """
+        Check for `ast.nodes.ReturnStatement`
+
+        Args:
+            node (lyra.ast.nodes.ReturnStatement): target lyra node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): type of `node.expr`
+        """
+
+        lyra_type = None
+
         if node.expr is None:
             return self.types_def["void"]
 
-        typ = self.visit(node.expr, s_locals)
-        return typ
+        lyra_type = self.visit(node.expr, s_locals)
+        return lyra_type
 
     def visit_struct(self, node):
+        """
+        Check for `lyra.ast.nodes.StructDef`
+
+        Args:
+            node (ast.nodes.StructDef): target lyra struct node
+
+        Returns:
+            lyra_type (lyra.types.LyraStructType)
+        """
         target = node.target
         members = node.members
 
@@ -100,6 +133,17 @@ class LyraTypeChecker:
         return s_type
 
     def visit_getitem(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.GetItem`
+
+        Args:
+            node (ast.nodes.GetItem): target lyra node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): expression type
+        """
+
         target = node.target
         t_type = self.visit(target, s_locals)
 
@@ -108,6 +152,17 @@ class LyraTypeChecker:
         return t_type.elem
 
     def visit_attr(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.GetAttribute`
+
+        Args:
+            node (ast.nodes.GetAttribute): target lyra node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): expression type
+        """
+
         t_type = self.visit(node.target, s_locals)
         attr = node.attr
 
@@ -120,6 +175,17 @@ class LyraTypeChecker:
         return t_type.members[attr.value]
 
     def visit_list(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.List`
+
+        Args:
+            node (ast.nodes.List): target lyra `List` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraArrayType): lyra array type
+        """
+
         items = node.arglist
 
         i_type = None
@@ -135,6 +201,17 @@ class LyraTypeChecker:
         return LyraArrayType(i_type, len(items))
 
     def visit_assign(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Assign`
+
+        Args:
+            node (ast.nodes.Assign): target lyra `Assign` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): variable value type
+        """
+
         target = node.target
         val = node.value
         t_type = None
@@ -152,6 +229,17 @@ class LyraTypeChecker:
         return t_type
 
     def visit_comp(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.CompareOp`
+
+        Args:
+            node (ast.nodes.CompareOp): target lyra `CompareOp` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBoolType): lyra boolean type
+        """
+
         lhs = node.lhs
         rhs = node.rhs
 
@@ -165,9 +253,31 @@ class LyraTypeChecker:
         return LyraBoolType()
 
     def visit_boolop(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.BooleanOp`
+
+        Args:
+            node (ast.nodes.BooleanOp): target lyra `BooleanOp` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBoolType): lyra boolean type
+        """
+
         return self.visit_comp(node, s_locals)
 
     def visit_uop(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.UnaryOp`
+
+        Args:
+            node (ast.nodes.UnaryOp): target lyra `UnaryOp` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): lyra type
+        """
+
         lhs = node.lhs
         lhs_type = self.visit(lhs, s_locals)
 
@@ -184,7 +294,17 @@ class LyraTypeChecker:
         return lhs_type
 
     def visit_binop(self, node, s_locals):
-        
+        """
+        Check for `lyra.ast.nodes.BinaryOp`
+
+        Args:
+            node (ast.nodes.BinaryOp): target lyra `BinaryOp` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): lyra type
+        """
+
         lhs = node.lhs
         rhs = node.rhs
 
@@ -200,6 +320,17 @@ class LyraTypeChecker:
         return lhs_type
 
     def visit_number(self, node):
+        """
+        Check for `lyra.ast.nodes.Number`
+
+        Args:
+            node (ast.nodes.Number): target lyra `Number` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): lyra type
+        """
+
         _type = node.type
 
         if _type in ["DEC_NUMBER", "HEX_NUMBER", "OCT_NUMBER", "BIN_NUMBER"]:
@@ -210,6 +341,17 @@ class LyraTypeChecker:
         return typ
 
     def visit_name(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Name`
+
+        Args:
+            node (ast.nodes.Name): target lyra `Name` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): lyra type
+        """
+
         n_str = node.value
         v_type = s_locals.get(n_str)
 
@@ -219,6 +361,17 @@ class LyraTypeChecker:
 
 
     def visit_declaration(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Declaration`
+
+        Args:
+            node (ast.nodes.Declaration): target lyra `Declaration` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): variable type
+        """
+
         target = node.target.value
         value = node.value
 
@@ -240,6 +393,17 @@ class LyraTypeChecker:
         return type
 
     def visit_call(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Call`
+
+        Args:
+            node (ast.nodes.Call): target lyra `Call` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraBaseType): function return type
+        """
+
         target = node.target
         arglist = node.arglist or []
 
@@ -262,6 +426,18 @@ class LyraTypeChecker:
         return func.return_type
 
     def visit_obj(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Call` for a new struct
+        instance
+
+        Args:
+            node (ast.nodes.Call): target lyra `Call` node
+            s_locals (dict): local variables
+
+        Returns:
+            lyra_type (lyra.types.LyraObjectType): lyra object type
+        """
+
         target = node.target
         arglist = node.arglist or []
         struct_ = self.types_def[target.value]
@@ -283,6 +459,17 @@ class LyraTypeChecker:
         return struct_
 
     def visit_function(self, node):
+        """
+        Check for `lyra.ast.nodes.FunctionDef` new function
+        declaration
+
+        Args:
+            node (ast.nodes.Call): target lyra `Call` node
+
+        Returns:
+            lyra_type (lyra.types.LyraFunctionType): lyra function type
+        """
+
         return_type = node.type
         arglist = node.arglist or []
         func_name = node.target.value
@@ -318,6 +505,14 @@ class LyraTypeChecker:
         return func_typ
 
     def visit_cond_block(self, node, s_locals):
+        """
+        Check for `lyra.ast.nodes.Block` (while-loops, until-loops, if-else)
+
+        Args:
+            node (ast.nodes.Block): target lyra `Block` node
+
+        """
+
         cond = node.expr
 
         cond_type = self.visit(cond, s_locals)
@@ -341,6 +536,16 @@ class LyraTypeChecker:
                 self.visit(orelse, _locals)
 
     def _type_exists(self, node):
+        """
+        Checks if the type infered in `node` exists
+
+        Args:
+            node (ast.nodes.LyraNode): target lyra node
+
+        Return:
+            lyra_type (lyra.types.LyraBaseType): lyra type
+        """
+
         if node is None:
             return self.types_def["void"]
 
@@ -369,6 +574,13 @@ class LyraTypeChecker:
             return LyraPointerType(typ)
 
     def error(self, msg, node):
+        """
+        Lyra custom error
+
+        Args:
+            node (ast.nodes.LyraNode): target lyra node
+        """
+
         line = node.line
         col = node.column
         col_end = node.end_column
