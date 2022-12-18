@@ -326,6 +326,16 @@ class LyraTransformer(Transformer):
         lhs = node[0]
         return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
 
+    def ptr(self, node):
+        op = "*"
+        lhs = node[0]
+        return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
+
+    def deref(self, node):
+        op = "&"
+        lhs = node[0]
+        return self.init_node(UnaryOp, lhs, op=op, lhs=lhs, rhs=None)
+
     def init_node(self, node_type, node, **kwargs):
         kwargs.update(dict(
                 line=node.line,

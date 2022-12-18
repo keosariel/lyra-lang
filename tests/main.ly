@@ -29,6 +29,10 @@ def func3(a: i64): i64 { pass; }
 ///  return 0;
 //}
 
+def func_ptr(age: *i32): i32{
+  return &age;
+}
+
 // Main function
 def main(): i64 {
   
@@ -44,6 +48,10 @@ def main(): i64 {
   // variable test
   var age: i32 = 1 + 4;
   var ages: i32[20];
+  
+  func_ptr(*age);
+  func2(&(*age));
+
   var b: i32 = 1 << 2;
   var g: f32 = -1.3;
   // function call test

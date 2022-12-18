@@ -13,9 +13,6 @@ PRIMITIVES = {
     "f64": LyraDoubleType()
 }
 
-"""
-TODO: pointers
-"""
 
 class LyraTypeChecker:
 
@@ -29,48 +26,52 @@ class LyraTypeChecker:
             self.visit(node, {})
 
     def visit(self, node, s_locals):
+        lyra_type = None
+
         if isinstance(node, FunctionDef):
-            return self.visit_function(node)
+            lyra_type = self.visit_function(node)
             
         elif isinstance(node, Call):
-            return self.visit_call(node, s_locals)
+            lyra_type = self.visit_call(node, s_locals)
         
         elif isinstance(node, Name):
-            return self.visit_name(node, s_locals)
+            lyra_type = self.visit_name(node, s_locals)
 
         elif isinstance(node, Number):
-            return self.visit_number(node)
+            lyra_type = self.visit_number(node)
 
         elif isinstance(node, Declaration):
-            return self.visit_declaration(node, s_locals)
+            lyra_type = self.visit_declaration(node, s_locals)
 
         elif isinstance(node, IfBlock) or isinstance(node, WhileBlock) or isinstance(node, UntilBlock):
             self.visit_cond_block(node, s_locals)
 
         elif isinstance(node, CompareOp):
-            return self.visit_boolop(node, s_locals)
+            lyra_type = self.visit_boolop(node, s_locals)
 
         elif isinstance(node, BinaryOp):
-            return self.visit_binop(node, s_locals)
+            lyra_type = self.visit_binop(node, s_locals)
 
         elif isinstance(node, UnaryOp):
-            return self.visit_uop(node, s_locals)
+            lyra_type = self.visit_uop(node, s_locals)
 
         elif isinstance(node, Assign):
-            return self.visit_assign(node, s_locals)
+            lyra_type = self.visit_assign(node, s_locals)
 
         elif isinstance(node, List):
-            return self.visit_list(node, s_locals)
+            lyra_type = self.visit_list(node, s_locals)
 
         elif isinstance(node, GetItem):
-            return self.visit_getitem(node, s_locals)
+            lyra_type = self.visit_getitem(node, s_locals)
 
         elif isinstance(node, StructDef):
-            return self.visit_struct(node)
+            lyra_type = self.visit_struct(node)
 
         elif isinstance(node, GetAttribute):
-            return self.visit_attr(node, s_locals);
+            lyra_type = self.visit_attr(node, s_locals);
 
+        setattr(node, "lyra_type", lyra_type)
+        return lyra_type
 
     def visit_struct(self, node):
         target = node.target
@@ -159,6 +160,13 @@ class LyraTypeChecker:
     def visit_uop(self, node, s_locals):
         lhs = node.lhs
         lhs_type = self.visit(lhs, s_locals)
+
+        if node.op == "*": # For pointer
+            return LyraPointerType(lhs_type)
+        elif node.op == "&": # For deferencing
+            if not isinstance(lhs_type, LyraPointerType):
+                self.error(f"Expected a pointer but got `{lhs_type.str_rep()}`", node)
+            return lhs_type.lyra_type
 
         if node.op not in lhs_type.bin_ops + lhs_type.bit_ops:
             self.error(f"Invalid operator `{node.op}` on type `{lhs_type.str_rep()}`", lhs)
@@ -333,7 +341,13 @@ class LyraTypeChecker:
             count = int(index.value)
             arr_type = LyraArrayType(n_type, count)
             return arr_type
-
+        
+        elif isinstance(node, UnaryOp):
+            if node.op != "*":
+                self.error(f"Invalid unary operation `{node.op}`", node)
+            lhs = node.lhs
+            typ = self._type_exists(lhs)
+            return LyraPointerType(typ)
 
     def error(self, msg, node):
         line = node.line

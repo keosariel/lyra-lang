@@ -183,6 +183,24 @@ class LyraFunctionType(LyraBaseType):
         return f"<{self.__class__.__name__} ({self.str_rep()})>"
 
 
+
+class LyraPointerType(LyraBaseType):
+
+    llvm_base_type = ir.PointerType
+    llvm_type = None
+
+    def __init__(self, lyra_type):
+        if not isinstance(lyra_type, LyraBaseType):
+            raise ValueError(f"Expected an instance of LyraBaseType")
+        self.llvm_type = self.llvm_base_type(lyra_type.llvm_type)
+        self.lyra_type = lyra_type
+
+    def str_rep(self):
+        return f"*{self.lyra_type.str_rep()}"
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__} ({self.str_rep()})>"
+
 class LyraStructType(LyraBaseType):
 
     llvm_base_type = ir.LiteralStructType
