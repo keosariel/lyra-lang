@@ -15,6 +15,10 @@ Pointfloat = group(r'[0-9](?:_?[0-9])*\.(?:[0-9](?:_?[0-9])*)?',
                    r'\.[0-9](?:_?[0-9])*') + maybe(Exponent)
 Expfloat = r'[0-9](?:_?[0-9])*' + Exponent
 
+# Hashsums
+# Email
+# UTF8 @keo
+
 class PLexer(Lexer):
     tokens = {
         NAME, 
