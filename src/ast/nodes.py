@@ -112,6 +112,9 @@ class Constant(Expression):
 class Operation(Expression):
     __fields__ = ("op", "lhs", "rhs")
 
+class List(LyraNode):
+    __fields__ = ("arglist",)
+
 class UnaryOp(Operation):
     pass
 

@@ -18,7 +18,6 @@ TODO: strings
 TODO: array & struct property assignment
 TODO: structs
 TODO: pointers
-TODO: function calls return type
 """
 
 class LyraTypeChecker:
@@ -63,13 +62,44 @@ class LyraTypeChecker:
         elif isinstance(node, Assign):
             return self.visit_assign(node, s_locals)
 
-    def visit_assign(self, node, s_locals):
+        elif isinstance(node, List):
+            return self.visit_list(node, s_locals)
 
+        elif isinstance(node, GetItem):
+            return self.visit_getitem(node, s_locals)
+
+        # else:
+        #     print(node)
+
+    def visit_getitem(self, node, s_locals):
+        target = node.target
+        t_type = self.visit(target, s_locals)
+
+        if not isinstance(t_type, LyraArrayType):
+            self.error(f"Expected an array but got `{t_type.str_rep()}`")
+        return t_type.elem
+
+    def visit_list(self, node, s_locals):
+        items = node.arglist
+
+        i_type = None
+        for i in items:
+            if i_type is None:
+                i_type = self.visit(i, s_locals)
+            else:
+                _i_type = self.visit(i, s_locals)
+
+                if i_type != _i_type:
+                    self.error(f"Expected element of type `{i_type.str_rep()}` but got `{_i_type.str_rep()}`", i)
+
+        return LyraArrayType(i_type, len(items))
+
+    def visit_assign(self, node, s_locals):
         target = node.target
         val = node.value
         t_type = None
 
-        if isinstance(target, Name):
+        if isinstance(target, Name) or isinstance(target, GetItem):
             t_type = self.visit(target, s_locals)
         else:
             self.error("Invalid assignment", target)
@@ -164,7 +194,7 @@ class LyraTypeChecker:
 
     def visit_call(self, node, s_locals):
         target = node.target
-        arglist = node.arglist
+        arglist = node.arglist or []
 
         _lyra_args = []
 
@@ -177,6 +207,9 @@ class LyraTypeChecker:
 
             if func_sig not in self.func_def:
                 self.error(f"Unknown function with signature `{func_sig}`", target)
+
+        func = self.func_def[func_sig]
+        return func.return_type
 
     def visit_function(self, node):
         return_type = node.type
@@ -222,11 +255,10 @@ class LyraTypeChecker:
             self.error(f"Expected a boolean but got `{cond_type.str_rep()}`", cond)
 
         body = node.body
-        
+        _locals = dict(s_locals) # copying previous locals
         for n in body:
-            self.visit(n, s_locals)
+            self.visit(n, _locals)
 
-        print(node)
 
     def _type_exists(self, node):
         if node is None:
@@ -241,8 +273,14 @@ class LyraTypeChecker:
         
         elif isinstance(node, GetItem):
             n_type = self._type_exists(node.target)
-            # TODO: create a array with int constant check
-            return n_type
+            index = node.index
+            if not isinstance(index, Number):
+                self.error("Expected an integer constant", index)
+
+            count = int(index.value)
+            arr_type = LyraArrayType(n_type, count)
+            return arr_type
+
 
     def error(self, msg, node):
         line = node.line

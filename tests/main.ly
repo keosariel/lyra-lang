@@ -10,7 +10,7 @@ struct Car { model: char[32]; date: int; }
 def func1() { pass; }
 
 // No return
-def func2(a_val: i32) { pass; }
+def func2(a_val: i32): i32 { pass; }
 
 // Params anf return
 def func3(a: i64): i64 { pass; }
@@ -42,7 +42,10 @@ def main(): i64 {
   var g: f32 = -1.3;
   // function call test
   func2(age);
+  
+  var nums: i32[5][2] = [];
 
+  nums[0] = [1,2,3,4,5];
   // re-assign test
   age = 90;
   
@@ -52,13 +55,15 @@ def main(): i64 {
   // loops
 
   while age == 5 {
-	age = r;
+	var xx: i32 = 4;
 	break;
 	continue;
   }
+
+  // func2(xx); xx is out of scope
   
-  v = name.age();
-  n = person.names[0];
+  b = func2(33);
+  // n = person.names[0];
 
   return;
 }

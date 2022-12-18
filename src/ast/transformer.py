@@ -156,6 +156,17 @@ class LyraTransformer(Transformer):
     def get_var(self, node):
         return node[0]
 
+    def setup_list(self, node):
+        return node[0]
+
+    def list(self, node):
+        node = node or []
+
+        if len(node) < 1:
+            return
+
+        return self.init_node(List, node[0], arglist=node)
+
     def number(self, node):
         n = node[0]
         return self.init_node(Number, n, value=n.value, type=n.type)

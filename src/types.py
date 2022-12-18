@@ -26,6 +26,9 @@ class LyraIntType(LyraBaseType):
         return self.llvm_type.as_pointer()
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
         return self.bits == other.bits and self.signed == other.signed
 
     def __repr__(self):
@@ -59,6 +62,9 @@ class LyraFloatType(LyraBaseType):
         return "f32"
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
         return self.llvm_type == other.llvm_type
 
     def __repr__(self):
@@ -79,10 +85,45 @@ class LyraDoubleType(LyraBaseType):
         return "f64"
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
         return self.llvm_type == other.llvm_type
 
     def __repr__(self):
         return f"<{self.__class__.__name__} (f64)>"
+
+class LyraArrayType(LyraBaseType):
+
+    llvm_base_type = ir.ArrayType
+    llvm_type = None
+    bit_ops = []
+    bool_ops = []
+    bin_ops = []
+
+    def __init__(self, elem, count):
+        if not isinstance(elem, LyraBaseType):
+            raise ValueError(f"Expected an instance of LyraBaseType")
+
+        self.llvm_type = self.llvm_base_type(elem.llvm_type, count)
+        self.elem = elem
+        self.count = count
+
+    def as_pointer(self):
+        return self.llvm_type.as_pointer()
+
+    def str_rep(self):
+        return f"{self.elem.str_rep()}[{self.count}]"
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
+        return self.elem == other.elem and self.count == other.count
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__} ({self.str_rep()})>"
+
 
 class LyraVoidType(LyraBaseType):
 
@@ -97,6 +138,10 @@ class LyraVoidType(LyraBaseType):
     
     def str_rep(self):
         return "void"
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
 
     def __repr__(self):
         return f"<{self.__class__.__name__} (void)>"
