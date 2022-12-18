@@ -68,8 +68,27 @@ class LyraTypeChecker:
         elif isinstance(node, GetItem):
             return self.visit_getitem(node, s_locals)
 
+        elif isinstance(node, StructDef):
+            return self.visit_struct(node)
+
         # else:
         #     print(node)
+
+    def visit_struct(self, node):
+        target = node.target
+        members = node.members
+
+        if target.value in self.types_def:
+            self.error(f"Type `{target.value}`already exists", target)
+
+        mem = {}
+        for name, typ in members:
+            typ = self._type_exists(typ)
+            mem[name.value] = typ
+
+        s_type = LyraStructType(**mem)
+        self.types_def[target.value] = s_type
+        return s_type
 
     def visit_getitem(self, node, s_locals):
         target = node.target

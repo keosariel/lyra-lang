@@ -1,10 +1,10 @@
 struct Person {
   name: char[32];
-  age: int;
-  height: int;
+  age: i32;
+  height: i32;
 }
 
-struct Car { model: char[32]; date: int; }
+struct Car { model: char[32]; date: i32; }
 
 // No params
 def func1() { pass; }

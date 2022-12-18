@@ -183,4 +183,28 @@ class LyraFunctionType(LyraBaseType):
         return f"<{self.__class__.__name__} ({self.str_rep()})>"
 
 
+class LyraStructType(LyraBaseType):
+
+    llvm_base_type = ir.LiteralStructType
+    llvm_type = None
+    bin_ops = []
+    bit_ops = []
+    bool_ops = []
+
+    def __init__(self, **members):
+        m_types = []
+        for k, v in members.items():
+            if not isinstance(v, LyraBaseType):
+                raise ValueError(f"Expected an instance of LyraBaseType")
+
+            m_types.append(v.llvm_type)
+
+        self.members = members
+        self.llvm_type = self.llvm_base_type(m_types)
+
+    def str_rep(self):
+        return f"struct{{{','.join([f'{k}:{v.str_rep()}' for k,v in self.members.items()])}}}"
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__} ({self.str_rep()})>"
 
