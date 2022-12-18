@@ -191,20 +191,39 @@ class LyraStructType(LyraBaseType):
     bit_ops = []
     bool_ops = []
 
-    def __init__(self, **members):
+    def __init__(self, name, *args):
         m_types = []
-        for k, v in members.items():
+        members = {}
+        for k, v in args:
             if not isinstance(v, LyraBaseType):
                 raise ValueError(f"Expected an instance of LyraBaseType")
 
             m_types.append(v.llvm_type)
+            members[k] = v
 
+        self.name = name
+        self.args = args # need to know the order of the parameters
         self.members = members
         self.llvm_type = self.llvm_base_type(m_types)
 
     def str_rep(self):
-        return f"struct{{{','.join([f'{k}:{v.str_rep()}' for k,v in self.members.items()])}}}"
+        return f"{self.name}{{{','.join([f'{k}:{v.str_rep()}' for k,v in self.members.items()])}}}"
 
     def __repr__(self):
         return f"<{self.__class__.__name__} ({self.str_rep()})>"
 
+class LyraObjectType(LyraBaseType):
+
+    llvm_type = None
+    bin_ops = []
+    bit_ops = []
+    bool_ops = []
+
+    def __init__(self, struct_type):
+        self.llvm_type = struct_type
+
+    def str_rep(self):
+        return f"object({self.llvm_type.str_rep()})"
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__} ({self.str_rep()})>"

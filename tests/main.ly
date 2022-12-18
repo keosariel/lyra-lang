@@ -5,7 +5,7 @@ struct Person {
 }
 
 struct Car { model: char[32]; date: i32; }
-
+struct Point {x: i32; y:i32;}
 // No params
 def func1() { pass; }
 
@@ -34,6 +34,12 @@ def main(): i64 {
   
   // function call test
   func2(34);
+
+  var p: Point = Point(21, 44);
+
+  var va: Point;
+  va.x = 43;
+  va.y = 44;
 
   // variable test
   var age: i32 = 1 + 4;

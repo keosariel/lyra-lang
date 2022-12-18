@@ -14,9 +14,6 @@ PRIMITIVES = {
 }
 
 """
-TODO: strings
-TODO: array & struct property assignment
-TODO: structs
 TODO: pointers
 """
 
@@ -71,8 +68,9 @@ class LyraTypeChecker:
         elif isinstance(node, StructDef):
             return self.visit_struct(node)
 
-        # else:
-        #     print(node)
+        elif isinstance(node, GetAttribute):
+            return self.visit_attr(node, s_locals);
+
 
     def visit_struct(self, node):
         target = node.target
@@ -81,12 +79,12 @@ class LyraTypeChecker:
         if target.value in self.types_def:
             self.error(f"Type `{target.value}`already exists", target)
 
-        mem = {}
+        arglist = []
         for name, typ in members:
             typ = self._type_exists(typ)
-            mem[name.value] = typ
+            arglist.append((name.value, typ))
 
-        s_type = LyraStructType(**mem)
+        s_type = LyraStructType(target.value, *arglist)
         self.types_def[target.value] = s_type
         return s_type
 
@@ -97,6 +95,18 @@ class LyraTypeChecker:
         if not isinstance(t_type, LyraArrayType):
             self.error(f"Expected an array but got `{t_type.str_rep()}`")
         return t_type.elem
+
+    def visit_attr(self, node, s_locals):
+        t_type = self.visit(node.target, s_locals)
+        attr = node.attr
+
+        if not hasattr(t_type, "members"):
+            self.error(f"`{t_type.str_rep()}` does not have the attribute `{attr.value}`")
+
+        if attr.value not in t_type.members:
+            self.error(f"`{t_type.str_rep()}` does not have the attribute `{attr.value}`")
+
+        return t_type.members[attr.value]
 
     def visit_list(self, node, s_locals):
         items = node.arglist
@@ -118,7 +128,7 @@ class LyraTypeChecker:
         val = node.value
         t_type = None
 
-        if isinstance(target, Name) or isinstance(target, GetItem):
+        if isinstance(target, Name) or isinstance(target, GetItem) or isinstance(target, GetAttribute):
             t_type = self.visit(target, s_locals)
         else:
             self.error("Invalid assignment", target)
@@ -225,10 +235,34 @@ class LyraTypeChecker:
             func_sig = f"{target.value}({_args})"
 
             if func_sig not in self.func_def:
+                if target.value in self.types_def:
+                    return self.visit_obj(node, s_locals)
+
                 self.error(f"Unknown function with signature `{func_sig}`", target)
 
         func = self.func_def[func_sig]
         return func.return_type
+
+    def visit_obj(self, node, s_locals):
+        target = node.target
+        arglist = node.arglist or []
+        struct_ = self.types_def[target.value]
+
+        if len(arglist) < 1:
+            return struct_
+
+        s_args = struct_.args
+
+        if len(arglist) != len(s_args):
+            self.error(f"Expected `{len(s_args)}` arguements but got `{len(arglist)}`", target)
+
+        for i, a in enumerate(arglist):
+            typ = self.visit(a, s_locals)
+            name, s_typ = s_args[i]
+            if not (typ == s_typ):
+                self.error(f"Expected type `{s_type.str_rep()}` but got `{s_type.str_rep()}` for ({name})", arglist[i])
+        
+        return struct_
 
     def visit_function(self, node):
         return_type = node.type
