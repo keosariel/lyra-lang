@@ -103,9 +103,8 @@ def lyra_main():
             print(module)
 
     if argv.compile:
-        # figure this out
-        pass
-        print("Compiled")
+        #synthesize_from_textGPT(ir_file)
+        #use urllib3 for api 
         sys.exit(1)
 
     if argv.print_code:
