@@ -159,7 +159,7 @@ class LyraTypeChecker:
         rhs_type = self.visit(rhs, s_locals)
 
         if not (lhs_type == rhs_type):
-            self.error("Operation on different types", lhs)
+            self.error(f"Operation on different types (`{lhs_type.str_rep()}` {node.op} `{rhs_type.str_rep()}`)", lhs)
 
         typ = LyraBoolType()
         return LyraBoolType()
@@ -192,7 +192,7 @@ class LyraTypeChecker:
         rhs_type = self.visit(rhs, s_locals)
 
         if not (lhs_type == rhs_type):
-            self.error("Operation on different types", lhs)
+            self.error(f"Operation on different types (`{lhs_type.str_rep()}` {node.op} `{rhs_type.str_rep()}`)", lhs)
 
         if node.op not in lhs_type.bin_ops + lhs_type.bit_ops:
             self.error(f"Invalid operator `{node.op}` on type `{lhs_type.str_rep()}`", lhs)
@@ -330,6 +330,15 @@ class LyraTypeChecker:
         for n in body:
             self.visit(n, _locals)
 
+        if hasattr(node, "orelse"): # if-else block
+            orelse = node.orelse
+            _locals = dict(s_locals)
+
+            if isinstance(orelse, list):
+                for n in orelse:
+                    self.visit(n, _locals)
+            else:
+                self.visit(orelse, _locals)
 
     def _type_exists(self, node):
         if node is None:

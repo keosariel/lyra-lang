@@ -73,6 +73,16 @@ def main(): i64 {
 	break;
 	continue;
   }
+  
+  var ag_baby: i32;
+
+  if age ==5{
+	ag_baby = 0;
+  } elif (ages[0] == 90){
+	ag_baby = 9;
+  }else{
+	ag_baby = 0;
+  }
 
   // func2(xx); xx is out of scope
   
