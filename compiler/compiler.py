@@ -22,6 +22,7 @@ class Compiler:
             'double':   ir.DoubleType(),
             'void':     ir.VoidType(),
             # ? Note i8 in most languages are characters
+            # @zdanl 18/12/22: make it i16
             'str':      ir.ArrayType(ir.IntType(8),1),
         }
 
