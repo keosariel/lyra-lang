@@ -70,8 +70,18 @@ class LyraTypeChecker:
         elif isinstance(node, GetAttribute):
             lyra_type = self.visit_attr(node, s_locals);
 
+        elif isinstance(node, ReturnStatement):
+            lyra_type = self.visit_return(node, s_locals)
+
         setattr(node, "lyra_type", lyra_type)
         return lyra_type
+
+    def visit_return(self, node, s_locals):
+        if node.expr is None:
+            return self.types_def["void"]
+
+        typ = self.visit(node.expr, s_locals)
+        return typ
 
     def visit_struct(self, node):
         target = node.target
