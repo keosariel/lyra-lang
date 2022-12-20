@@ -4,7 +4,14 @@
 #### Update: Source Code Synthesis using @OpenAI for LARK and Compiler, VM, more examples of English->Code:
 https://gist.github.com/zdanl/4a3bbc04cabb5a723e893f800191318b?permalink_comment_id=4408355#gistcomment-4408355
 
-Second Thread: Modify upon the LARK file of the Programming-Language-in-Python-LLVMLite Author:<br />
+##### Update 2: Analyze in terms of complexity and time that it would take for a human to write such a file, an experienced Parser Engineer, and Modify upon the LARK file of the Programming-Language-in-Python-LLVMLite Author:<br />
+
+```Explain the following LARK file in detail:```
+
+```
+
+```
+
 
 
 (continiously updated)
