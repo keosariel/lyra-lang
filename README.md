@@ -1,5 +1,9 @@
 # Lyra
 ### LangSec Programming Language for the Semiconductor Industry
+
+#### Update: Source Code Synthesis using @OpenAI for LARK and Compiler, VM, more examples of English->Code:
+https://gist.github.com/zdanl/4a3bbc04cabb5a723e893f800191318b?permalink_comment_id=4408355#gistcomment-4408355
+
 - Website: [https://lyralang.org](https://lyralang.org)
 - Join us on Discord: https://discord.gg/SxjKxGmPUY
 
