@@ -9,7 +9,9 @@ https://gist.github.com/zdanl/4a3bbc04cabb5a723e893f800191318b?permalink_comment
 ```Explain the following LARK file in detail:```
 
 ```
-
+Resp Beginning: https://gist.github.com/zdanl/171501d2b3919b585ae18dde1f1a3e48
+Resp Transformer: 
+Resp Typechecker: 
 ```
 
 
